@@ -16,6 +16,7 @@ class Recurrence {
     protected $requestedInterval;
     protected $requestedLang;
     protected $requestedMonths;
+    protected $requestedMonthdays;
     protected $requestedStart;
     protected $requestedUntil;
     protected $rRuleFrequencies;
@@ -190,6 +191,25 @@ class Recurrence {
     }
 
     /**
+     * Set the monthdays for Rrule
+     * @param array $months the monthnames
+     */
+    public function setMonthdays(array $monthdays) {
+        $values = implode(',', $monthdays);
+        $this->requestedMonthdays = "BYMONTHDAY={$values};";
+
+        return $this;
+    }
+
+    /**
+     * Get the monthday value for Rrule
+     * @return string A formatted string for use in Rrule
+     */
+    public function getMonthdays() {
+        return $this->requestedMonthdays;
+    }
+
+    /**
      * Set the start date for the recurrence
      * @param Carbon $start Start date
      */
@@ -227,7 +247,7 @@ class Recurrence {
      * Create the string for use in Rrule.
      */
     private function setRuleString() {
-        $this->rRuleString = rtrim("{$this->requestedCount}{$this->requestedFrequency}{$this->requestedInterval}{$this->requestedDays}{$this->requestedMonths}{$this->requestedUntil}{$this->requestedFrom}", ';');
+        $this->rRuleString = rtrim("{$this->requestedCount}{$this->requestedFrequency}{$this->requestedInterval}{$this->requestedDays}{$this->requestedMonths}{$this->requestedMonthdays}{$this->requestedUntil}{$this->requestedFrom}", ';');
     }
 
     /**
